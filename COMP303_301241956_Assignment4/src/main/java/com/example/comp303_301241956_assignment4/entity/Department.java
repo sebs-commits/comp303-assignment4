@@ -6,10 +6,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Table(name = "department")
+@NoArgsConstructor
 public class Department {
     @Id
     @Column(name = "department_id")
@@ -18,4 +20,7 @@ public class Department {
     @NotNull(message = "Department name is required!")
     @Column(name = "department_name")
     private String departmentName;
+    public Department(int departmentId) {
+        this.departmentId = departmentId;
+    }
 }
