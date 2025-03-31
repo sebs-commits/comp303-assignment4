@@ -18,7 +18,7 @@ public class StaffController {
     @Autowired
     private StaffRepository staffRepository;
 
-    @GetMapping("staff")
+    @GetMapping("/staff")
     public ResponseEntity<?> getAllStaff(){
 
         try{
@@ -33,6 +33,19 @@ public class StaffController {
             return ResponseEntity.badRequest().body("Error getting staff" + e.getMessage());
         }
 
+    }
+    @GetMapping("/staff/{staffId}")
+    public ResponseEntity<?> getStaffById(@PathVariable int staffId) {
+
+        try {
+            Optional<Staff> optionalStaff = staffRepository.findById(staffId);
+            if (optionalStaff.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found");
+            }
+            return ResponseEntity.ok(optionalStaff.get());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error getting staff: " + e.getMessage());
+        }
     }
 
     @PostMapping("/create-staff")
@@ -69,4 +82,5 @@ public class StaffController {
             return ResponseEntity.badRequest().body("Error adding staff: " + e.getMessage());
         }
     }
+
 }
