@@ -3,6 +3,7 @@ package com.example.comp303_301241956_assignment4.controller;
 
 import com.example.comp303_301241956_assignment4.entity.Staff;
 import com.example.comp303_301241956_assignment4.repository.StaffRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ public class StaffController {
     }
 
     @PutMapping("/add-staff/{staffId}")
-    public ResponseEntity<?> addStaff(@RequestBody Staff staff, @PathVariable int staffId) {
+    public ResponseEntity<?> updateStaff(@RequestBody Staff staff, @PathVariable int staffId) {
         try {
             Optional<Staff> optionalStaff = staffRepository.findById(staffId);
             if (optionalStaff.isEmpty()) {
@@ -75,7 +76,9 @@ public class StaffController {
             if (staff.getHotel() != null) {
                 existingStaff.setHotel(staff.getHotel());
             }
-
+            if(staff.getStaffRating() != 0) {
+                existingStaff.setStaffRating(staff.getStaffRating());
+            }
             return ResponseEntity.ok(staffRepository.save(existingStaff));
 
         } catch (Exception e) {
