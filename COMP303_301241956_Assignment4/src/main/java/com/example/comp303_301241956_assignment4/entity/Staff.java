@@ -25,12 +25,10 @@ public class Staff {
     @Column(name = "staff_rating")
     private int staffRating;
 
-    @NotNull(message = "Department is required!")
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @NotNull(message = "Hotel is required!")
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
