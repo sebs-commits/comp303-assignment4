@@ -61,7 +61,7 @@ public class StaffController {
         }
     }
 
-    @PutMapping("/add-staff/{staffId}")
+    @PutMapping("/update-staff/{staffId}")
     public ResponseEntity<?> updateStaff(@RequestBody Staff staff, @PathVariable int staffId) {
         try {
             Optional<Staff> optionalStaff = staffRepository.findById(staffId);
