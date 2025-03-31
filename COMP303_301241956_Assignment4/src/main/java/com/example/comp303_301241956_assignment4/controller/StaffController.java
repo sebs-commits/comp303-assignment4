@@ -77,6 +77,11 @@ public class StaffController {
                 existingStaff.setHotel(staff.getHotel());
             }
             if(staff.getStaffRating() != 0) {
+                int rating = staff.getStaffRating();
+
+                if (rating < 0 || rating > 5) {
+                    return ResponseEntity.badRequest().body("Rating must be between 0 and 5");
+                }
                 existingStaff.setStaffRating(staff.getStaffRating());
             }
             return ResponseEntity.ok(staffRepository.save(existingStaff));
