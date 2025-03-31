@@ -5,10 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "hotel")
+@NoArgsConstructor
 public class Hotel {
     @Id
     @Column(name = "hotel_id")
@@ -19,4 +21,8 @@ public class Hotel {
 
     @Column(name = "hotel_rating")
     private int hotelRating;
+
+    public Hotel(int hotelId) {
+        this.hotelId = hotelId;
+    }
 }
