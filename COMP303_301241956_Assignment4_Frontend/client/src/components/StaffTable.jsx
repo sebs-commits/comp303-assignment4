@@ -1,25 +1,17 @@
 // src/components/StaffTable.jsx
 import React from "react";
 import { useStaff } from "../hooks/useStaff";
+import ErrorAlert from "./ErrorAlert";
+import LoadingSpinner from "./LoadingSpinner";
 const StaffTable = () => {
   const { staffList, isLoading, error } = useStaff();
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div role="alert" className="alert alert-error">
-          <span>Error! {error}</span>
-        </div>
-      </div>
-    );
+    return <ErrorAlert message={error} />;
   }
 
   return (
