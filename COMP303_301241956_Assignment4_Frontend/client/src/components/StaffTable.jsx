@@ -42,7 +42,9 @@ const StaffTable = () => {
             <tr key={staff.staffId}>
               <td>{staff.staffId}</td>
               <td>{staff.staffName}</td>
-              <td>{staff.staffRating}</td>
+              <td>
+                {staff.staffRating === 0 ? "No Rating" : staff.staffRating}
+              </td>
               <td>
                 {staff.department
                   ? staff.department.departmentName
