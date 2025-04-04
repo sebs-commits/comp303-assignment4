@@ -1,7 +1,9 @@
 package com.example.comp303_301241956_assignment4.controller;
 
 
+import com.example.comp303_301241956_assignment4.entity.Hotel;
 import com.example.comp303_301241956_assignment4.entity.Staff;
+import com.example.comp303_301241956_assignment4.repository.HotelRepository;
 import com.example.comp303_301241956_assignment4.repository.StaffRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class StaffController {
 
     @Autowired
     private StaffRepository staffRepository;
+
+    @Autowired
+    private HotelRepository hotelRepository;
 
     @GetMapping("/staff")
     public ResponseEntity<?> getAllStaff(){
@@ -71,24 +76,44 @@ public class StaffController {
             }
 
             Staff existingStaff = optionalStaff.get();
-            if (staff.getDepartment() != null) {
-                existingStaff.setDepartment(staff.getDepartment());
-            }
-            if (staff.getHotel() != null) {
-                existingStaff.setHotel(staff.getHotel());
-            }
+
             if(staff.getStaffRating() != 0) {
                 int rating = staff.getStaffRating();
 
                 if (rating < 0 || rating > 5) {
                     return ResponseEntity.badRequest().body("Rating must be between 0 and 5");
                 }
-                existingStaff.setStaffRating(staff.getStaffRating());
+                existingStaff.setStaffRating(rating);
             }
+
+            if (staff.getHotel() != null) {
+                // Were grabbing the complete hotel id from hotel repository
+                Optional<Hotel> optionalHotel = hotelRepository.findById(staff.getHotel().getHotelId());
+
+                if (optionalHotel.isEmpty()) {
+                    return ResponseEntity.badRequest().body("Hotel not found");
+                }
+
+                Hotel actualHotel = optionalHotel.get();
+                int hotelRating = actualHotel.getHotelRating();
+                int staffRating = existingStaff.getStaffRating();
+
+                // If hotel rating is 4 or more, then staff must have rating of 4 or more
+                if (hotelRating >= 4 && staffRating < 4) {
+                    return ResponseEntity.badRequest().body("Hotels with rating 4 or more require staff with performance rating of 4 or more");
+                }
+
+                existingStaff.setHotel(actualHotel);
+            }
+
+            if (staff.getDepartment() != null) {
+                existingStaff.setDepartment(staff.getDepartment());
+            }
+
             return ResponseEntity.ok(staffRepository.save(existingStaff));
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error adding staff: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error updating staff: " + e.getMessage());
         }
     }
 
