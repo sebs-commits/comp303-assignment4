@@ -3,6 +3,7 @@ import React from "react";
 import { useStaff } from "../hooks/useStaff";
 import ErrorAlert from "./ErrorAlert";
 import LoadingSpinner from "./LoadingSpinner";
+import { Link } from "react-router-dom";
 const StaffTable = () => {
   const { staffList, isLoading, error } = useStaff();
 
@@ -26,6 +27,7 @@ const StaffTable = () => {
             <th>Rating</th>
             <th>Department</th>
             <th>Assigned Hotel</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +45,17 @@ const StaffTable = () => {
                   : "Not assigned"}
               </td>
               <td>{staff.hotel ? staff.hotel.hotelName : "Not assigned"}</td>
-              {/* action column will go here later */}
+              <td>
+                {" "}
+                {/* Actions cell */}
+                {/* Changed button to Link */}
+                <Link
+                  to={`/staff/${staff.staffId}`} // Link to the detail page route
+                  className="btn btn-xs btn-outline btn-info" // Style as a button
+                >
+                  View
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
