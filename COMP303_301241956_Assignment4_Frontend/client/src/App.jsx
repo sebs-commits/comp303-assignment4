@@ -6,13 +6,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <>
-      <NavBar />
-      {/* 4. Use BrowserRouter */}
+      {/* BrowserRouter */}
       <BrowserRouter>
         <div className="container mx-auto p-4">
+          <NavBar />
           <Routes>
-            <Route path="/staff" element={<StaffTable />} />
+            {/* Staff details page */}
             <Route path="/staff/:staffId" element={<StaffDetailPage />} />
+            {/* Home page */}
             <Route index element={<StaffTable />} />
           </Routes>
         </div>

@@ -46,12 +46,9 @@ const StaffTable = () => {
               </td>
               <td>{staff.hotel ? staff.hotel.hotelName : "Not assigned"}</td>
               <td>
-                {" "}
-                {/* Actions cell */}
-                {/* Changed button to Link */}
                 <Link
-                  to={`/staff/${staff.staffId}`} // Link to the detail page route
-                  className="btn btn-xs btn-outline btn-info" // Style as a button
+                  to={`/staff/${staff.staffId}`}
+                  className="btn btn-xs btn-outline btn-info" 
                 >
                   View
                 </Link>
