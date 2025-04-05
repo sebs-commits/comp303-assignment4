@@ -53,7 +53,16 @@ export const useStaffEdit = (staffId) => {
       await updateStaff(staffId, formData);
       setSuccess(true);
     } catch (err) {
-      setError("Failed to update staff" + (err.response?.data?.message || ""));
+      let errorMessage = "Failed to update staff";
+
+      if (err.response) {
+        // Check if the response contains data that is a string, then return it
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        }
+      }
+
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

@@ -36,9 +36,15 @@ export const useStaffCreate = () => {
         staffRating: 0,
       });
     } catch (err) {
-      setError(
-        "Failed to create staff: " + (err.response?.data?.message || "")
-      );
+      let errorMessage = "Failed to create staff";
+      // Check if the response contains data that is a string, then return it
+      if (err.response) {
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        }
+      }
+
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
