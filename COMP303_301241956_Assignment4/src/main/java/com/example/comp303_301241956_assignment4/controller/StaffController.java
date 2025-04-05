@@ -29,7 +29,7 @@ public class StaffController {
     public ResponseEntity<?> getAllStaff(){
 
         try{
-            List<Staff> staff = staffRepository.findAll();
+            List<Staff> staff = staffRepository.findAllOrderedByDepartment();
 
             if(staff.isEmpty()){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No staff found");
