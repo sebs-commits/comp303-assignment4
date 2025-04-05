@@ -57,12 +57,29 @@ public class StaffController {
 
     @PostMapping("/create-staff")
     public ResponseEntity<?> createStaff(@RequestBody Staff staff) {
+        try {
+            if (staff.getHotel() != null) {
+                Optional<Hotel> optionalHotel = hotelRepository.findById(staff.getHotel().getHotelId());
 
-        try{
+                if (optionalHotel.isEmpty()) {
+                    return ResponseEntity.badRequest().body("Hotel not found");
+                }
+
+                Hotel actualHotel = optionalHotel.get();
+                int hotelRating = actualHotel.getHotelRating();
+                int staffRating = staff.getStaffRating();
+
+                if (hotelRating >= 4 && staffRating < 4) {
+                    return ResponseEntity.badRequest().body("Hotels with rating 4 or more require staff with performance rating of 4 or more");
+                }
+
+                staff.setHotel(actualHotel);
+            }
+
             staffRepository.save(staff);
             return ResponseEntity.ok("Staff created successfully!");
         }
-        catch(Exception e){
+        catch(Exception e) {
             return ResponseEntity.badRequest().body("Error creating staff: " + e.getMessage());
         }
     }
