@@ -26,9 +26,6 @@ const StaffDetailPage = () => {
     return (
       <div className="p-4">
         <ErrorAlert message={error} />
-        <Link to="/staff" className="btn btn-sm btn-outline mt-4">
-          Back to Staff List
-        </Link>
       </div>
     );
   }
@@ -37,7 +34,7 @@ const StaffDetailPage = () => {
     <div className="p-4 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Staff Details</h1>
-        <Link to="/staff" className="btn">
+        <Link to="/" className="btn">
           Back to List
         </Link>
       </div>

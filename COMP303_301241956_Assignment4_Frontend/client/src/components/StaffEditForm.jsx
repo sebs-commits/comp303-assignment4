@@ -29,7 +29,7 @@ const StaffEditForm = ({ staffData, onSuccess }) => {
   return (
     <div className="card bordered bg-base-100 shadow-xl">
       <div className="card-body">
-        <h2 className="card-title">Edit Staff Details</h2>
+        <h2 className="card-title">Edit Staff Assignment</h2>
         <div className="divider"></div>
 
         {error && <ErrorAlert message={error} />}

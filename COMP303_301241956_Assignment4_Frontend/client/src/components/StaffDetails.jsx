@@ -13,7 +13,7 @@ const StaffDetails = ({ staffData }) => {
           <strong>Name:</strong> {staffData.staffName}
         </p>
         <p>
-          <strong>Rating:</strong>{" "}
+          <strong>Performance Rating:</strong>{" "}
           {staffData.staffRating === 0 ? "No Rating" : staffData.staffRating}
         </p>
         <p>
