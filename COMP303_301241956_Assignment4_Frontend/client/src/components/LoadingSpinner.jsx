@@ -2,7 +2,7 @@ import React from "react";
 
 function LoadingSpinner() {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div>
       <span className="loading loading-spinner loading-lg"></span>
     </div>
   );
