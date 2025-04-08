@@ -5,6 +5,9 @@ import StaffDetailPage from "./pages/StaffDetailPage";
 import StaffCreateForm from "./components/StaffCreateForm";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginForm from "./components/LoginForm";
+import RegistrationForm from "./components/UserRegistrationForm";
+
 function App() {
   return (
     <>
@@ -19,6 +22,8 @@ function App() {
             <Route index element={<StaffTable />} />
             <Route path="/create" element={<StaffCreateForm />} />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegistrationForm />} />
           </Routes>
         </div>
       </BrowserRouter>
