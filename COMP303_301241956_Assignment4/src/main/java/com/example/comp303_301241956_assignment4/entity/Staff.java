@@ -33,4 +33,12 @@ public class Staff {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
+    // For auth
+
+    @Column(name = "username", unique = true)
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
 }
