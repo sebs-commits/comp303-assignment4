@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
+import { getUserDepartment } from "../utils/AuthApi";
 import ErrorAlert from "./ErrorAlert";
 
 const LoginForm = () => {
   const { formData, error, success, handleChange, handleSubmit } = useLogin();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (success) {
+      const department = getUserDepartment();
+      if (department === "MANAGEMENT") {
+        navigate("/");
+      } else {
+        navigate("/credentials");
+      }
+    }
+  }, [success, navigate]);
 
   return (
     <form
@@ -14,7 +28,6 @@ const LoginForm = () => {
 
       {error && <ErrorAlert message={error} />}
 
-      {/* Maybe create a seperate component for this */}
       {success && (
         <div className="alert alert-success mb-4">
           <span>Login successful!</span>
