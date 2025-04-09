@@ -31,14 +31,14 @@ const StaffDetailPage = () => {
   }
 
   return (
-    <div className="p-4 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="p-4">
+      <div className="flex justify-between items-center m-4">
         <h1 className="text-3xl font-bold">Staff Details</h1>
         <Link to="/" className="btn">
           Back to List
         </Link>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
         <StaffDetails staffData={staffData} />
         <StaffEditForm staffData={staffData} onSuccess={handleEditSuccess} />
       </div>
