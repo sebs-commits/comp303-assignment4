@@ -23,15 +23,27 @@ export const login = async (username, password) => {
       password,
     });
 
-    // Store auth info in local storage
     if (response.data.message === "Login successful") {
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("department", response.data.department);
+
+      const encodedCredentials = btoa(`${username}:${password}`);
+      localStorage.setItem("authCredentials", encodedCredentials);
+
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Basic ${encodedCredentials}`;
     }
 
     return response.data;
+    // Clear local storage,  we'll throw an error
   } catch (error) {
     console.error("Error during login:", error);
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("department");
+    localStorage.removeItem("authCredentials");
+
+    delete axios.defaults.headers.common["Authorization"];
 
     if (error.response && error.response.data) {
       throw new Error(error.response.data);
@@ -44,6 +56,8 @@ export const login = async (username, password) => {
 export const logout = () => {
   localStorage.removeItem("isAuthenticated");
   localStorage.removeItem("department");
+  localStorage.removeItem("authCredentials");
+  delete axios.defaults.headers.common["Authorization"];
 };
 
 export const isAuthenticated = () => {
