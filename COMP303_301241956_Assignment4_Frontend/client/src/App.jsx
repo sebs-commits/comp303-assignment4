@@ -8,6 +8,12 @@ import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/UserRegistrationForm";
 import { isAuthenticated, isManagement } from "./utils/AuthApi";
 import UserCredentialPage from "./pages/UserCredentialPage";
+import axios from "axios";
+
+const savedCredentials = localStorage.getItem("authCredentials");
+if (savedCredentials) {
+  axios.defaults.headers.common["Authorization"] = `Basic ${savedCredentials}`;
+}
 
 function App() {
   return (
