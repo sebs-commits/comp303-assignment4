@@ -11,13 +11,11 @@ const LoginForm = () => {
   useEffect(() => {
     if (success) {
       const department = getUserDepartment();
-      setTimeout(() => {
-        if (department === "MANAGEMENT") {
-          navigate("/"); 
-        } else {
-          navigate("/credentials");
-        }
-      }, 100);
+      if (department === "MANAGEMENT") {
+        navigate("/");
+      } else {
+        navigate("/credentials");
+      }
     }
   }, [success, navigate]);
 

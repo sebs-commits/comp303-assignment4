@@ -1,12 +1,19 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logout, isAuthenticated } from "../utils/AuthApi";
 
 function NavBar() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated());
+
+  useEffect(() => {
+    setIsLoggedIn(isAuthenticated());
+  }, [location]);
 
   const handleLogout = () => {
     logout();
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
@@ -19,7 +26,7 @@ function NavBar() {
         </Link>
       </div>
       <div className="navbar-end">
-        {isAuthenticated() ? (
+        {isLoggedIn ? (
           <button onClick={handleLogout} className="btn btn-ghost btn-outline">
             Logout
           </button>
