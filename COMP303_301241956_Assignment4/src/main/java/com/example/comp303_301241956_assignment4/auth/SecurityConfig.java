@@ -22,8 +22,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/staff/", "/api/create-staff", "/api/update-staff/**").hasAuthority("MANAGEMENT")
+                        .requestMatchers("/api/staff", "/api/create-staff", "/api/update-staff/**").hasAuthority("MANAGEMENT")
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());
